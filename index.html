@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi San Valentín?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #ffe6ea;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        h1 { color: #d63384; }
+        .buttons { margin-top: 20px; }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #noBtn {
+            background-color: #adb5bd;
+            color: white;
+            position: absolute; /* Importante para que se mueva libremente */
+        }
+        .hidden { display: none; }
+        img { width: 200px; border-radius: 15px; }
+    </style>
+</head>
+<body>
+
+    <div id="questionContainer">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndnN6ZzR5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNwSULPk77/giphy.gif" alt="Cute gif">
+        <h1>¿Quieres ser mi San Valentín? ❤️</h1>
+        <div class="buttons">
+            <button id="yesBtn">¡Sí!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div id="successContainer" class="hidden">
+        <h1>¡SABÍA QUE DIRÍAS QUE SÍ! 😍</h1>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHpndnN6ZzR5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/lTQF061vwXBGEY7Oti/giphy.gif" alt="Celebrate gif">
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const questionContainer = document.getElementById('questionContainer');
+        const successContainer = document.getElementById('successContainer');
+
+        // Función para mover el botón "No" a una posición aleatoria
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+
+        // Acción al hacer clic en "Sí"
+        yesBtn.addEventListener('click', () => {
+            questionContainer.classList.add('hidden');
+            successContainer.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
