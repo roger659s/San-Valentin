@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi favorita ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --pink-soft: #ffcad4;
+            --pink-hot: #ff4d6d;
+            --dark-pink: #c9184a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #fff0f3;
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Fondo de corazones animados */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -10px;
+            background: var(--pink-hot);
+            width: 20px;
+            height: 20px;
+            transform: rotate(45deg);
+            animation: float 5s linear infinite;
+            opacity: 0.6;
+        }
+
+        .heart::before, .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--pink-hot);
+            border-radius: 50%;
+        }
+
+        .heart::before { left: -10px; }
+        .heart::after { top: -10px; }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--dark-pink);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .gif-container img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .btns {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            min-height: 100px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        #yesBtn {
+            background-color: var(--pink-hot);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        #noBtn {
+            background-color: #6c757d;
+            color: white;
+            position: absolute;
+        }
+
+        .hidden { display: none; }
+        
+        #successContainer h1 { font-size: 3rem; }
+    </style>
+</head>
+<body>
+
+    <div class="hearts" id="heartsContainer"></div>
+
+    <div class="container" id="mainContainer">
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndnN6ZzR5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNwSULPk77/giphy.gif" alt="gatito tierno">
+        </div>
+        <h1>¿Quieres ser mi San Valentín? ❤️</h1>
+        <div class="btns">
+            <button id="yesBtn">¡SÍ!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="successContainer">
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZueXJueHphZ3pueXpueHphZ3pueHphZ3pueHphZ3pueHphZyZlcD12MV9pbnRlcm5hbV9naWZfYnlfaWQmY3Q9Zw/KztT2c4u8mYYUiMKdJ/giphy.gif" alt="celebración">
+        </div>
+        <h1>¡SABÍA QUE DIRÍAS QUE SÍ! 😍</h1>
+        <p>Prepara tu agenda para el 14...</p>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainContainer = document.getElementById('mainContainer');
+        const successContainer = document.getElementById('successContainer');
+        
+        const frasesNo = [
+            "¿Estás segura?",
+            "¡Piénsalo bien!",
+            "Dime que sí, por fi",
+            "No seas así...",
+            "¡Voy a llorar!",
+            "Mira el botón rosa, es más bonito"
+        ];
+        
+        let counterNo = 0;
+        let fontSizeYes = 1.1;
+
+        // Mover el botón NO y hacerlo interactivo
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            
+            // Cambiar el texto del botón NO
+            noBtn.innerText = frasesNo[counterNo % frasesNo.length];
+            counterNo++;
+            
+            // Hacer el botón SÍ más grande
+            fontSizeYes += 0.2;
+            yesBtn.style.transform = `scale(${fontSizeYes})`;
+        });
+
+        yesBtn.addEventListener('click', () => {
+            mainContainer.classList.add('hidden');
+            successContainer.classList.remove('hidden');
+            createMoreHearts();
+        });
+
+        // Crear corazones de fondo
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.getElementById('heartsContainer').appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+
+        function createMoreHearts() {
+            for(let i=0; i<50; i++) {
+                setTimeout(createHeart, i * 20);
+            }
+        }
+    </script>
+</body>
+</html>
